@@ -1,2 +1,2 @@
 # wenweb-client-www
-www client for webweb
+WWW client for WenWeb
