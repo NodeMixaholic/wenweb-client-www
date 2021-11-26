@@ -2,6 +2,11 @@
 <html>
     <head><title>WenWeb WWW Client</title></head>
     <script>
+        let coredb;
+        let pages;
+        let pageSource;
+        let basePath;
+        let gun = Gun()
         function parseMD(markdown) {
 	        const htmlText = markdown
 		        .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
@@ -14,19 +19,29 @@
 		        .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
 		        .replace(/\*(.*)\*/gim, '<i>$1</i>')
 		        .replace(/!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />")
-		        .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
+		        .replace(/\[(.*?)\]\((.*?)\)/gim, `<a href='#' onclick='hyperlink(${basePath}, $2)'>$1</a>`)
 		        .replace(/\n$/gim, '<br />')
 
 	        return htmlText.trim()
         }
         function go(){
             let path = document.getElementById("txtPath").value;
-            let basePath = ["",path.split("@")[1],path.split("@")[2]].join("@")
-            let gun = Gun()
-            let coredb = gun.get(`~@${basePath}`).get('wenweb')
-            let pages = coredb.get('@pages')
-            let pageSource = pages.get(a.split("@")[3])
+            basePath = ["",path.split("@")[1],path.split("@")[2]].join("@")
+            coredb = gun.get(`~@${basePath}`).get('wenweb')
+            pages = coredb.get('@pages')
+            pageSource = pages.get(path.split("@")[3])
             document.getElementById("content").innerHTML = parseMD(pageSource)
+        }
+        function hyperlink(basePath, link) {
+            if ((link.match(new RegExp(/@/g) || []).length) > 1) {
+                let newBP = ["",link.split("@")[1],link.split("@")[2]].join("@")
+                coredb = gun.get(`~@${newBP}`).get('wenweb')
+                pages = coredb.get('@pages')
+                pageSource = pages.get(link.split("@")[3])
+            } else {
+                pageSource = pages.get(link)
+                document.getElementById("content").innerHTML = parseMD(pageSource)
+            }
         }
     </script>
     <body>
