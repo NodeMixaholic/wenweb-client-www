@@ -18,7 +18,9 @@
 		        .replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>')
 		        .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
 		        .replace(/\*(.*)\*/gim, '<i>$1</i>')
-		        .replace(/!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />")
+		        .replace(/!I\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />")
+                .replace(/!V\[(.*?)\]\((.*?)\)/gim, "<video alt='$1' src='$2' />")
+                .replace(/!A\[(.*?)\]\((.*?)\)/gim, "<audio alt='$1' src='$2' />")
 		        .replace(/\[(.*?)\]\((.*?)\)/gim, `<a href='#' onclick='hyperlink(${basePath}, $2)'>$1</a>`)
 		        .replace(/\n$/gim, '<br />')
 
@@ -52,6 +54,9 @@
         <div id="content">
         
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+        </hr>
+        <p>Ready to use.</p>
+        <p>Copyright Samuel Lord. Licensed under the MIT license.</p>    
     </body>
-    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 </html>
