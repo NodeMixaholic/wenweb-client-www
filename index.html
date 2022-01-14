@@ -33,6 +33,7 @@
                 .replace(/!A\[(.*?)\]\((.*?)\)/gim, `<audio alt='$1' src='bringmeanerror.pleaseandthanks' onerror='url_to_src(${basePath}, $2, "audio/ogg")' />`)
 		        .replace(/\[(.*?)\]\((.*?)\)/gim, `<a href='#' onclick='hyperlink(${basePath}, $2)'>$1</a>`)
 		        .replace(/\n$/gim, '<br />')
+			.replace(/^--- (.*$)/gim, '<hr />')
 
 	        return htmlText.trim()
         }
