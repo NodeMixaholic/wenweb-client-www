@@ -6,7 +6,7 @@
         let pages;
         let pageSource;
         let basePath;
-        let gun = Gun()
+        let gun = Gun(['https://gun-manhattan.herokuapp.com/gun'])
         
         function to_b64(str) {
             return window.btoa(unescape(encodeURIComponent( str )));
